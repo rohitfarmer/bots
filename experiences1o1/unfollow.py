@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-Purpose: To follow the users who have followed experiences1o1 and also has certain keyword(s).
+Purpose: To unfollow users who are not following experiences1o1 anymore.
 Author: Rohit Farmer
 '''
 
