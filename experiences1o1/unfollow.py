@@ -1,20 +1,48 @@
-#!/home/rohitfar/public_html/cgi-bin/anaconda3/bin/python3
+#!/usr/bin/python3
 
-import tweepy, os
+'''
+Purpose: To follow the users who have followed experiences1o1 and also has certain keyword(s).
+Author: Rohit Farmer
+'''
 
-#OAuth authentication
+# Standard library
+import logging
+import datetime
 
-#creating an object
+# External library.
+import tweepy
+
+# Create a log file.
+logging.basicConfig(filename='.log/unfollow.log',level=logging.INFO)
+
+# OAuth authentication.
+with open('../../cred/exp.txt', 'r') as f: # Reading the credentials from a text file.
+    creds = f.readlines()
+    consumer_key = creds[0].rstrip()
+    consumer_secret = creds[1].rstrip()
+    access_token = creds[2].rstrip()
+    access_token_secret = creds[3].rstrip()
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
+# Create tweepy object.
 api = tweepy.API(auth)
+
+# Print a timestamp in the log file.
+timestamp = datetime.datetime.now()
+logging.info(timestamp)
 
 following = api.friends_ids('experiences1o1')
 
 followers = api.followers_ids('experiences1o1')
 
 for f in following:
-	if f in followers:
-		continue
-	else:
-		print("Not following: ",f)
-		print("Unfollowing: ",f)
-		api.destroy_friendship(f)
+    if f in followers:
+        continue
+    else:
+        logging.info("Not following: " + str(f))
+        logging.info("Unfollowing: " + str(f))
+        try:
+            api.destroy_friendship(f)
+        except Exception as ex:
+            logging.info(ex.message)
