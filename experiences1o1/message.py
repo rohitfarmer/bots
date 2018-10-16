@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 '''
-Purpose: To send a message to the followers, telling them about our intagram page.
-Note: Using twurl to send the message. Tweepy send message is not working with the update in the twitter api.
+Purpose: To send a message to the followers, telling them about our instagram page.
+Note: Using twurl to send the message. Tweepy send message is not working due to the update in the twitter api.
 Author: Rohit Farmer
 '''
 
@@ -54,9 +54,7 @@ else:
 logging.info("Extracting follower ids")
 followers = api.followers_ids('experiences1o1')
 
-f = followers[0:5]
-
-for follower in f:
+for follower in followers:
     if follower in sent_user_list:
         continue
     else:

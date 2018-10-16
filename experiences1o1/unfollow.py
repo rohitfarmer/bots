@@ -26,7 +26,7 @@ with open('../../cred/exp.txt', 'r') as f: # Reading the credentials from a text
     auth.set_access_token(access_token, access_token_secret)
 
 # Create tweepy object.
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 # Print a timestamp in the log file.
 timestamp = datetime.datetime.now()
