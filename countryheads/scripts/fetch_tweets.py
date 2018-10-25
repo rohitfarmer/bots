@@ -57,6 +57,13 @@ with open('since_id.txt', 'r') as sf:
 
 # Fetch recent tweets and append in the tsv file.
 with open(file_month, 'a') as t:
+    language = ""
+    stat = ""
+    user_id = ""
+    stat_id = ""
+    create = ""
+    name = ""
+
     for status in api.home_timeline(since_id=tweet_id, tweet_mode='extended'):
         language = status.lang
         stat = status.full_text
@@ -73,8 +80,9 @@ with open(file_month, 'a') as t:
             logging.info(ex)
 
 # Write the updated since_id.
-with open('since_id.txt', 'w') as sf:
-    try:
-        sf.write(stat_id)
-    except Exception as ex:
-        logging.info(ex)
+if stat_id != "" :
+    with open('since_id.txt', 'w') as sf:
+        try:
+            sf.write(stat_id)
+        except Exception as ex:
+            logging.info(ex)
